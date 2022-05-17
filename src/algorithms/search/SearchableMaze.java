@@ -18,6 +18,8 @@ public class SearchableMaze implements ISearchable{
     public LinkedList<AState> getAllPossibleStates(AState state) {
         int x=0;
         int y = 0;
+
+
         MazeState mState = (MazeState) state;
         Position statePosition = mState.getPosition();
         LinkedList<AState> AllPossibleStates = new LinkedList<>();
