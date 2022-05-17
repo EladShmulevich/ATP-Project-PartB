@@ -23,6 +23,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         //initial the start position with 0
         mazeArr[startPosition.getRowIndex()][startPosition.getColumnIndex()] = 0;
 
+        ArrayList<Position> path = new ArrayList<Position>();     //save the path of the maze
 
         //go forward until no unvisited Neighbors found
         currPosition = startPosition;
@@ -33,12 +34,14 @@ public class SimpleMazeGenerator extends AMazeGenerator {
             stop = allNeighbors.size();
             if(stop>0){
                 currPosition = allNeighbors.get(rand.nextInt(allNeighbors.size()));
+                path.add(currPosition);
                 mazeArr[nextPosition.getRowIndex()][nextPosition.getColumnIndex()] =0;
             }
             else break;
         }
 
-        endPosition = currPosition;
+//        endPosition = currPosition;
+        endPosition = path.get(rand.nextInt(path.size()));
 
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++){
