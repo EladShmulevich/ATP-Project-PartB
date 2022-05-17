@@ -1,0 +1,3 @@
+Test started!
+TEST Passed: generating maze (5*5) using SimpleMazeGenerator
+Test finished!
