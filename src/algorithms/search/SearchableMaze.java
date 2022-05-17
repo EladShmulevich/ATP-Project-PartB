@@ -8,9 +8,13 @@ import java.util.LinkedList;
 
 public class SearchableMaze implements ISearchable{
     Maze myMaze;
+//    MazeState startState;
+//    MazeState ensState;
 
     public SearchableMaze(Maze maze){
         this.myMaze = maze;
+//        this.startState = new MazeState(0, maze.getStartPosition());
+//        this.ensState = new MazeState(0, maze.getGoalPosition());
     }
 
 

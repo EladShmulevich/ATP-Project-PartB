@@ -1,6 +1,7 @@
 package algorithms.search;
-
 import algorithms.mazeGenerators.Position;
+
+import java.util.Objects;
 
 public abstract class AState{
     protected int cost;
@@ -24,8 +25,19 @@ public abstract class AState{
         this.previousState = previousState;
     }
 
-    //1 if bigger
-    //-1 if smaller
-    //0 equals
-    public abstract int compareCost(Object obj);
+    /**
+     *
+     * @param state - compare state to state by cost value
+     * @return int - 1 bigger, 0, equal, -1 smaller
+     */
+    public int compareCost(AState state){
+        return Integer.compare(this.cost, state.getCost());
+    }
+
+    @Override
+    public abstract boolean equals(Object o);
+
+    @Override
+    public abstract  int hashCode();
+
 }

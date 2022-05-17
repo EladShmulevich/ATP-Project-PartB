@@ -1,10 +1,11 @@
 package algorithms.search;
 import algorithms.mazeGenerators.Position;
 
+import java.util.Objects;
+
 
 public class MazeState extends AState{
     Position mazePosition;
-
     /**
      *
      * @param cost - the cost until this state(position)
@@ -15,17 +16,30 @@ public class MazeState extends AState{
         this.mazePosition = pos;
     }
 
-    /**
-     *
-     * @param obj - compare state to state by cost value
-     * @return int - 1 bigger, 0, equal, -1 smaller
-     */
-    public int compareCost(Object obj){
-        AState state = (AState) obj;
-        return Integer.compare(this.cost, state.getCost());
-    }
 
     public Position getPosition() {
         return mazePosition;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MazeState other = (MazeState) o;
+        return (other.getPosition().getRowIndex() == this.getPosition().getRowIndex()
+                && other.getPosition().getColumnIndex() == this.getPosition().getColumnIndex());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getPosition().getRowIndex(), this.getPosition().getColumnIndex());
+    }
+
+    @Override
+    public String toString() {
+        return "MazeState{" +
+                "mazePosition=" + mazePosition +
+                '}';
     }
 }
