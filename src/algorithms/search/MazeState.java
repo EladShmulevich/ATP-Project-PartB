@@ -12,7 +12,7 @@ public class MazeState extends AState{
      * @param pos - the position(row,index) of this state
      */
     public MazeState(int cost, Position pos) {
-        super(cost);
+        super(cost, pos.toString());
         this.mazePosition = pos;
     }
 
@@ -29,11 +29,6 @@ public class MazeState extends AState{
         return (other.getPosition().getRowIndex() == this.getPosition().getRowIndex()
                 && other.getPosition().getColumnIndex() == this.getPosition().getColumnIndex());
 
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.getPosition().getRowIndex(), this.getPosition().getColumnIndex());
     }
 
     @Override

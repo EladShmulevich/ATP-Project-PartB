@@ -4,10 +4,12 @@ import algorithms.mazeGenerators.Position;
 import java.util.Objects;
 
 public abstract class AState{
+    protected String state;
     protected int cost;
     protected AState previousState;
 
-    public AState(int cost){
+    public AState(int cost, String stateS){
+        this.state = stateS;
         this.cost = cost;
         this.previousState = null;
     }
@@ -15,7 +17,6 @@ public abstract class AState{
     public int getCost() {
         return cost;
     }
-
 
     public AState getPreviousState() {
         return previousState;
@@ -38,6 +39,8 @@ public abstract class AState{
     public abstract boolean equals(Object o);
 
     @Override
-    public abstract  int hashCode();
+    public int hashCode(){
+        return this.state.hashCode();
+    }
 
 }

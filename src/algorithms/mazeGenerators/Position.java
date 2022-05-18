@@ -57,14 +57,4 @@ public class Position {
         if (position == null || getClass() != position.getClass()) return false;
         return rowPos == position.getRowIndex() && colPos == position.getColumnIndex();
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Position position = (Position) o;
-//        return rowPos == position.rowPos && colPos == position.colPos;
-//    }
-
-
 }

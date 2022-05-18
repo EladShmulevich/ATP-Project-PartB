@@ -14,72 +14,33 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
         //initial all cells to 1 - no path
         int[][] mazeArr = defaultMaze(rows, columns);
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
-                mazeArr[i][j] = 1;
+
+        //put 1 in all cells
+        generateMazeGrid(mazeArr, rows, columns, 1);
 
         //create start position
-        startPosition = new Position(rand.nextInt(rows), rand.nextInt(columns));
-        //initial the start position with 0
-        mazeArr[startPosition.getRowIndex()][startPosition.getColumnIndex()] = 0;
-
-        ArrayList<Position> path = new ArrayList<Position>();     //save the path of the maze
+        startPosition = initStartPosition(mazeArr, rows, columns, rand);
 
         //go forward until no unvisited Neighbors found
         currPosition = startPosition;
-        int stop = 100;
-        while(stop>0){
+        boolean flag = true;
+        while(flag){
             nextPosition = currPosition;
-            ArrayList<Position> allNeighbors= getNeighboursList(nextPosition, mazeArr);
-            stop = allNeighbors.size();
-            if(stop>0){
+            ArrayList<Position> allNeighbors= getNeighboursList(nextPosition, mazeArr, 1);
+            if(allNeighbors.size() > 0){
                 currPosition = allNeighbors.get(rand.nextInt(allNeighbors.size()));
-                path.add(currPosition);
                 mazeArr[nextPosition.getRowIndex()][nextPosition.getColumnIndex()] =0;
             }
-            else break;
+            else flag = false;
         }
 
-//        endPosition = currPosition;
-        endPosition = path.get(rand.nextInt(path.size()));
+        endPosition = currPosition;
 
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++){
                 if(mazeArr[i][j] != 0)
                     mazeArr[i][j] = rand.nextInt(2);
             }
-
-
         return new Maze(mazeArr, startPosition, endPosition);
     }
-
-
-    private ArrayList<Position> getNeighboursList(Position currentPos, int[][] maze) {
-        ArrayList<Position> result = new ArrayList<>();
-        int rowIndex = currentPos.getRowIndex();
-        int colIndex = currentPos.getColumnIndex();
-        //Down
-        int i = 1;
-        if (rowIndex + i < maze.length) {
-            if (maze[rowIndex + i][colIndex] == 1)
-                result.add(new Position(rowIndex + i, colIndex));
-        }
-        //Up
-        if (rowIndex - i >= 0) {
-            if (maze[rowIndex - i][colIndex] == 1)
-                result.add(new Position(rowIndex - i, colIndex));
-        }
-        //Left
-        if (colIndex - i >= 0) {
-            if (maze[rowIndex][colIndex - i] == 1)
-                result.add(new Position(rowIndex, colIndex - i));
-        }
-        //Right
-        if (colIndex + i < maze[0].length) {
-            if (maze[rowIndex][colIndex + i] == 1)
-                result.add(new Position(rowIndex, colIndex + i));
-        }
-        return result;
-    }
-
 }

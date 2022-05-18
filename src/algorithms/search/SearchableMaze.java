@@ -26,7 +26,8 @@ public class SearchableMaze implements ISearchable{
         LinkedList<AState> allPossibleStates = new LinkedList<>();
         int currRow = statePosition.getRowIndex();
         int currCol = statePosition.getColumnIndex();
-        int[][] PosShift = {{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1}};  //clock cycle starts at 9
+//        int[][] PosShift = {{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1}};  //clock cycle starts at 12
+        int[][] PosShift = {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}};  //clock cycle starts at 12
         for(int i = 0; i < 8; i++){
                 int row = currRow + PosShift[i][0];
                 int col = currCol + PosShift[i][1];
@@ -82,26 +83,44 @@ public class SearchableMaze implements ISearchable{
         int[][] maze = myMaze.getMaze();
         int[][] candidatesStates = {{currRow,currCol},{currRow,currCol}};
         switch (diagonalNumber){
+//            case 1:
+//                candidatesStates[0][1] -= 1;
+//                candidatesStates[1][0] -= 1;
+//                  break;
+//            case 3:
+//                candidatesStates[0][1] += 1;
+//                candidatesStates[1][0] -= 1;
+//                break;
+//            case 5:
+//                candidatesStates[0][1] += 1;
+//                candidatesStates[1][0] += 1;
+//                break;
+//            case 7:
+//                candidatesStates[0][1] -= 1;
+//                candidatesStates[1][0] += 1;
+//                break;
+//            default:return false;
             case 1:
-                candidatesStates[0][1] -= 1;
-                candidatesStates[1][0] -= 1;
-                  break;
-            case 3:
                 candidatesStates[0][1] += 1;
                 candidatesStates[1][0] -= 1;
                 break;
-            case 5:
+            case 3:
                 candidatesStates[0][1] += 1;
+                candidatesStates[1][0] += 1;
+                break;
+            case 5:
+                candidatesStates[0][1] -= 1;
                 candidatesStates[1][0] += 1;
                 break;
             case 7:
                 candidatesStates[0][1] -= 1;
-                candidatesStates[1][0] += 1;
+                candidatesStates[1][0] -= 1;
                 break;
-            default:return false;
+                        default:return false;
         }
         return (maze[candidatesStates[0][0]][candidatesStates[0][1]] == 0 ||
                 maze[candidatesStates[1][0]][candidatesStates[1][1]] == 0);
-
     }
 }
+
+
