@@ -1,5 +1,8 @@
 package algorithms.search;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     public int numOfNodesEve;
 
@@ -11,5 +14,9 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
         return this.getClass().getSimpleName();
     }
     public int getNumberOfNodesEvaluated(){return this.numOfNodesEve;}
+
+
     public abstract Solution solve(ISearchable domain);
+
+
 }

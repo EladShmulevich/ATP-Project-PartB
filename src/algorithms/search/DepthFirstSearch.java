@@ -1,15 +1,15 @@
 package algorithms.search;
+import algorithms.mazeGenerators.Position;
+
 import java.util.*;
 
 
-public class DepthFirstSearch extends ASearchingAlgorithm{
+public class DepthFirstSearch extends ASearchingAlgorithm {
 
     public Solution solve(ISearchable domain) {
         return new Solution(dfsAlgorithm(domain));
     }
-
     /**
-     *
      * @param domain - the object to search on
      * @return array list of positions - the maze path(start to end)
      */
@@ -22,59 +22,112 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
         AState startState = domain.getStartState();
         HashSet<AState> visitedNodes = new HashSet<AState>();
 
-        ArrayList<AState> visitedinList = new ArrayList<AState>();
-
+        //this stack will save the maze path
         Stack<AState> statesStack = new Stack<AState>();
-        ArrayList<AState> solutionPath = new ArrayList<AState>();
 
+        //start with rhe start state
         statesStack.push(startState);
-        while (!statesStack.empty()) {
-            currState = statesStack.pop();
-            solutionPath.add(currState);
-            numOfNodesEve++;
-            if (visitedNodes.contains(currState))
-                continue;
-//            visitedNodes.add(currState);
-            int i =0;
-            for (AState state : domain.getAllPossibleStates(currState)) {
-                if (state.equals(goalState)) {
-                    solutionPath.add(state);
-                    numOfNodesEve++;
-                    return solutionPath;
+        outerLoop:
+        while (!startState.equals(goalState)) {      //if we didn't reach goalState keep going
+            currState = statesStack.peek();          //peek at the head of the stack - the node were currently standing on
+            visitedNodes.add(currState);              //add this node to the visited nodes list
+            LinkedList<AState> allPossibleStates = domain.getAllPossibleStates(currState);   //get all current list possible neighbors
+            int i = 0;
+            for (AState state : allPossibleStates) {
+                if (allPossibleStates.contains(goalState)){  //if we already know we can reach goalState we go to it(to prevent doing 2 moves instead of 1 - diagonal)
+                    statesStack.push(goalState);
+                    return stackToArray(statesStack);
                 }
-                if (!visitedNodes.contains(state))
+                if (!visitedNodes.contains(state)) {   //if current node have unvisited neighbor put it in the stack
                     statesStack.push(state);
-                else {i++;}
-                if(domain.getAllPossibleStates(currState).size() == i){
-                    visitedNodes.add(currState);
-                    for (AState visitedNode : visitedinList){
-                        if(!DoesIHaveUnVisitedNeighbors(visitedNode, domain, visitedNodes)){
-                            solutionPath.add(visitedNode);
-                        }
-                        else{
-                            solutionPath.add(visitedNode);
-                            break;
-                        }
-
-                    }
+                    startState = state;                 //now the neighbor is the current node - go back to while loop
+                    continue outerLoop;
                 }
+                else {i++;}
             }
-            visitedNodes.add(currState);
-            if(!visitedinList.contains(currState)){
-                visitedinList.add(0, currState);
+            if (allPossibleStates.size() == i) {   //if we didn't find unvisited neighbor
+                statesStack.pop();       //we remove the node from the stack
+                startState = statesStack.peek();   //then peek to the previous node
             }
-
         }
-        return solutionPath;
+        return stackToArray(statesStack);
     }
 
-
-    private boolean DoesIHaveUnVisitedNeighbors(AState state, ISearchable domain, HashSet<AState> allVisitedNodes){
-        for(AState visited : domain.getAllPossibleStates(state))
-            if(!allVisitedNodes.contains(visited))
-                return true;
-        return false;
+    private ArrayList<AState> stackToArray(Stack<AState> stack) {
+        ArrayList<AState> arr = new ArrayList<AState>();
+        while (!stack.isEmpty()) {
+            arr.add(stack.pop());
+        }
+        Collections.reverse(arr);
+        return arr;
     }
-
 }
+
+
+// TODO: 19/05/2022 check this code
+
+
+//    /**
+//     *
+//     * @param domain - the object to search on
+//     * @return array list of positions - the maze path(start to end)
+//     */
+//    private ArrayList<AState> dfsAlgorithm(ISearchable domain) {
+//        if (domain == null) {
+//            return null;
+//        }
+//        AState currState;
+//        AState goalState = domain.getGoalState();
+//        AState startState = domain.getStartState();
+//        HashSet<AState> visitedNodes = new HashSet<AState>();
+//
+//        ArrayList<AState> visitedinList = new ArrayList<AState>();
+//
+//        Stack<AState> statesStack = new Stack<AState>();
+//        ArrayList<AState> solutionPath = new ArrayList<AState>();
+//
+//        statesStack.push(startState);
+//        while (!statesStack.empty()) {
+//            currState = statesStack.pop();
+//            solutionPath.add(currState);
+//            numOfNodesEve++;
+//            if (visitedNodes.contains(currState))
+//                continue;
+////            visitedNodes.add(currState);
+//            int i =0;
+//            for (AState state : domain.getAllPossibleStates(currState)) {
+//                if (state.equals(goalState)) {
+//                    solutionPath.add(state);
+//                    numOfNodesEve++;
+//                    return solutionPath;
+//                }
+//                if (!visitedNodes.contains(state))
+//                    statesStack.push(state);
+//                else {i++;}
+//                if(domain.getAllPossibleStates(currState).size() == i){
+//                    visitedNodes.add(currState);
+//                    for (AState visitedNode : visitedinList){
+//                        if(!DoesIHaveUnVisitedNeighbors(visitedNode, domain, visitedNodes)){
+//                            solutionPath.add(visitedNode);
+//                        }
+//                        else{
+//                            solutionPath.add(visitedNode);
+//                            break;
+//                        }
+//
+//                    }
+//                }
+//            }
+//            visitedNodes.add(currState);
+//            if(!visitedinList.contains(currState)){
+//                visitedinList.add(0, currState);
+//            }
+//
+//        }
+//        return solutionPath;
+//    }
+
+
+
+
 
