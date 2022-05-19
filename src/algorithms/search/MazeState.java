@@ -31,6 +31,17 @@ public class MazeState extends AState{
     }
 
     @Override
+    public boolean isTheSame(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MazeState other = (MazeState) o;
+        boolean sameCost = this.getCost() == ((MazeState) o).getCost();
+        boolean samePosition = other.getPosition().getRowIndex() == this.getPosition().getRowIndex()
+                && other.getPosition().getColumnIndex() == this.getPosition().getColumnIndex();
+        return (sameCost && samePosition);
+    }
+
+    @Override
     public String toString() {
         return "MazeState{" +
                 "mazePosition=" + mazePosition +

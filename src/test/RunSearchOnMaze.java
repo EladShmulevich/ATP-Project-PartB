@@ -9,7 +9,7 @@ public class RunSearchOnMaze {
     public static void main(String[] args) {
         Random random = new Random();
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(5, 12);
+        Maze maze = mg.generate(10, 20);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         Position start = maze.getStartPosition();
         maze.print();
@@ -34,9 +34,9 @@ public class RunSearchOnMaze {
 //        System.out.println(String.format("Goal Position: %s", maze2.getGoalPosition()));
 
 
-        solveProblem(searchableMaze, new BreadthFirstSearch());
-        solveProblem(searchableMaze, new DepthFirstSearch());
-//        solveProblem(searchableMaze, new BestFirstSearch());
+ //       solveProblem(searchableMaze, new BreadthFirstSearch());
+//        solveProblem(searchableMaze, new DepthFirstSearch());
+       solveProblem(searchableMaze, new BestFirstSearch());
     }
     private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {
 //Solve a searching problem with a searcher

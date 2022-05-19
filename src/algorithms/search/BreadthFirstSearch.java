@@ -14,9 +14,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
         if (domain == null) {
             return null;
         }
-
+        //PriorityQueue<ArrayList<AState>> queuePaths = new PriorityQueue<ArrayList<AState>>() ;
         Queue<ArrayList<AState>> queuePaths = new LinkedList<ArrayList<AState>>();
-        AState currState;
         AState startState = domain.getStartState();
         AState goalState = domain.getGoalState();
         int numLevels = 0;

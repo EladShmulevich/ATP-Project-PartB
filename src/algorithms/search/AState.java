@@ -35,6 +35,8 @@ public abstract class AState{
     @Override
     public abstract boolean equals(Object o);
 
+    public abstract boolean isTheSame(Object o);
+
     @Override
     public int hashCode(){
         return this.state.hashCode();
