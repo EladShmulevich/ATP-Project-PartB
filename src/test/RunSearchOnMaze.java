@@ -34,7 +34,7 @@ public class RunSearchOnMaze {
 //        System.out.println(String.format("Goal Position: %s", maze2.getGoalPosition()));
 
 
-//        solveProblem(searchableMaze, new BreadthFirstSearch());
+        solveProblem(searchableMaze, new BreadthFirstSearch());
         solveProblem(searchableMaze, new DepthFirstSearch());
 //        solveProblem(searchableMaze, new BestFirstSearch());
     }
