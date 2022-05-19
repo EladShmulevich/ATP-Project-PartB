@@ -28,12 +28,14 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
         ArrayList<AState> path = new ArrayList<AState>();
         //first path
         path.add(startState);
+        numOfNodesEve ++;
         //add first path to queue path
         queuePaths.add(path);
         while (queuePaths.size() > 0){
             path = queuePaths.poll();
             //get the last move from the path
             AState lastState = path.get(path.size()-1);
+            numOfNodesEve ++;
             visitedNodes.add(lastState);
             //path found
             if(lastState.equals(goalState)){
