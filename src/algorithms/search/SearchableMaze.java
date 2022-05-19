@@ -83,23 +83,6 @@ public class SearchableMaze implements ISearchable{
         int[][] maze = myMaze.getMaze();
         int[][] candidatesStates = {{currRow,currCol},{currRow,currCol}};
         switch (diagonalNumber){
-//            case 1:
-//                candidatesStates[0][1] -= 1;
-//                candidatesStates[1][0] -= 1;
-//                  break;
-//            case 3:
-//                candidatesStates[0][1] += 1;
-//                candidatesStates[1][0] -= 1;
-//                break;
-//            case 5:
-//                candidatesStates[0][1] += 1;
-//                candidatesStates[1][0] += 1;
-//                break;
-//            case 7:
-//                candidatesStates[0][1] -= 1;
-//                candidatesStates[1][0] += 1;
-//                break;
-//            default:return false;
             case 1:
                 candidatesStates[0][1] += 1;
                 candidatesStates[1][0] -= 1;

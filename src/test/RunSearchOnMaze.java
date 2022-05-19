@@ -9,7 +9,7 @@ public class RunSearchOnMaze {
     public static void main(String[] args) {
         Random random = new Random();
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(6, 10);
+        Maze maze = mg.generate(5, 12);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         Position start = maze.getStartPosition();
         maze.print();

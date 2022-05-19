@@ -28,7 +28,6 @@ public class MazeState extends AState{
         MazeState other = (MazeState) o;
         return (other.getPosition().getRowIndex() == this.getPosition().getRowIndex()
                 && other.getPosition().getColumnIndex() == this.getPosition().getColumnIndex());
-
     }
 
     @Override

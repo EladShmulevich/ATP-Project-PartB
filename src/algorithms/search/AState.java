@@ -1,7 +1,4 @@
 package algorithms.search;
-import algorithms.mazeGenerators.Position;
-
-import java.util.Objects;
 
 public abstract class AState{
     protected String state;
@@ -42,5 +39,4 @@ public abstract class AState{
     public int hashCode(){
         return this.state.hashCode();
     }
-
 }

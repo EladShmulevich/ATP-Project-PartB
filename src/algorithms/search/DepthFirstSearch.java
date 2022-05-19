@@ -1,5 +1,4 @@
 package algorithms.search;
-import algorithms.mazeGenerators.Position;
 
 import java.util.*;
 
@@ -7,7 +6,7 @@ import java.util.*;
 public class DepthFirstSearch extends ASearchingAlgorithm {
 
     public Solution solve(ISearchable domain) {
-        return new Solution(dfsAlgorithm(domain));
+        return  new Solution(dfsAlgorithm(domain));
     }
     /**
      * @param domain - the object to search on
@@ -36,11 +35,13 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             for (AState state : allPossibleStates) {
                 if (allPossibleStates.contains(goalState)){  //if we already know we can reach goalState we go to it(to prevent doing 2 moves instead of 1 - diagonal)
                     statesStack.push(goalState);
+                    numOfNodesEve += visitedNodes.size();
                     return stackToArray(statesStack);
                 }
                 if (!visitedNodes.contains(state)) {   //if current node have unvisited neighbor put it in the stack
                     statesStack.push(state);
-                    startState = state;                 //now the neighbor is the current node - go back to while loop
+//                    numOfNodesEve++;
+                    startState = state;                //now the neighbor is the current node - go back to while loop
                     continue outerLoop;
                 }
                 else {i++;}
@@ -50,6 +51,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                 startState = statesStack.peek();   //then peek to the previous node
             }
         }
+        numOfNodesEve += visitedNodes.size();
         return stackToArray(statesStack);
     }
 
