@@ -17,14 +17,11 @@ public class EmptyMazeGenerator extends AMazeGenerator {
         Position startP = initStartPosition(mazeArr, rows, columns, rand);
 
         //init random end position
-        int endRow = rand.nextInt(rows);
-        int endCol = rand.nextInt(columns);
-        Position endP = new Position(rand.nextInt(rows), rand.nextInt(columns));
-        while (startP.equals(endP)){
-            endP.setRowPos(rand.nextInt(rows));
-            endP.setColPos(rand.nextInt(columns));
-        }
+        Position endP = initStartPosition(mazeArr, rows, columns, rand);
 
+        while (startP.equals(endP)){
+              endP = initStartPosition(mazeArr, rows, columns, rand);
+        }
         return new Maze(mazeArr, startP, endP);
     }
 }

@@ -12,7 +12,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         ArrayList<Position> path = new ArrayList<Position>();     //save the path of the maze
         Position startPosition, endPosition;
         Random rand = new Random();
-        int endRowIndex, endColIndex;
+
 
         int[][] mazeArr = defaultMaze(rows, columns);
         //start with all maze with 1 - no path
@@ -23,7 +23,6 @@ public class MyMazeGenerator extends AMazeGenerator {
 
         return dfsGenerator(mazeArr, rows, columns, startPosition, rand);
     }
-
 
     /**
      * make a solvable maze by dfs algorithm
@@ -47,11 +46,11 @@ public class MyMazeGenerator extends AMazeGenerator {
             boolean unVisitedNeighbor = DoesIHaveUnVisitedNeighbors(currPosition,rows,cols,maze);
             if(unVisitedNeighbor){
                 pStack.push(currPosition);
-                allNeighbors = getNeighboursList(currPosition, maze, 2);
+                allNeighbors = getNeighboursList(currPosition, maze, 2, 1);
                 nextPosition = allNeighbors.get(rand.nextInt(allNeighbors.size()));
 
-                // break the walls
-                breakWalls(maze, currPosition.getRowIndex(), nextPosition.getRowIndex(), currPosition.getColumnIndex(), nextPosition.getColumnIndex());
+                // break the walls and add them to the path
+                path.add(breakWalls(maze, currPosition.getRowIndex(), nextPosition.getRowIndex(), currPosition.getColumnIndex(), nextPosition.getColumnIndex()));
 
                 //mark the neighbor as visited
                 maze[nextPosition.getRowIndex()][nextPosition.getColumnIndex()] = 0;
@@ -59,7 +58,13 @@ public class MyMazeGenerator extends AMazeGenerator {
                 path.add(nextPosition);
             }
         }
+        //select random end position and take care its on the frame!
         Position endPosition = path.get(rand.nextInt(path.size()));
+        while (!isOnFrame(endPosition, rows, cols)){
+            if(path.size()>1)
+                path.remove(endPosition);
+            endPosition = path.get(rand.nextInt(path.size()));
+        }
         return new Maze(maze, startPosition, endPosition);
     }
 
@@ -105,16 +110,34 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param currCol - curr col position
      * @param nextCol - next col position
      */
-    private void breakWalls(int[][] maze, int currRow, int nextRow, int currCol, int nextCol){
-        if (currRow - nextRow == 2)
+    private Position breakWalls(int[][] maze, int currRow, int nextRow, int currCol, int nextCol){
+        if (currRow - nextRow == 2){
             maze[currRow - 1][currCol] = 0;
-        if (currRow - nextRow == -2)
+            return new Position(currRow - 1, currCol);
+        }
+        if (currRow - nextRow == -2){
             maze[currRow + 1][currCol] = 0;
-
-        if (currCol - nextCol == 2)
+            return new Position(currRow + 1, currCol);
+        }
+        if (currCol - nextCol == 2){
             maze[currRow][currCol - 1] = 0;
-
+            return new Position(currRow, currCol - 1);
+        }
         if (currCol - nextCol == -2)
             maze[currRow][currCol + 1] = 0;
+            return new Position(currRow, currCol + 1);
+    }
+
+    /**
+     *
+     * @param pos - position
+     * @param rows - rows num
+     * @param cols - cols num
+     * @return - true if position is on maze frame
+     */
+    private boolean isOnFrame(Position pos, int rows, int cols){
+            int rowIndex = pos.getRowIndex();
+            int colIndex = pos.getColumnIndex();
+        return (rowIndex <= 0 || rowIndex >= rows-1) || (colIndex <= 0 || colIndex >= cols-1);
     }
 }

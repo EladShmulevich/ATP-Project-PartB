@@ -8,16 +8,16 @@ import java.util.LinkedList;
 
 public class SearchableMaze implements ISearchable{
     Maze myMaze;
-//    MazeState startState;
-//    MazeState ensState;
 
     public SearchableMaze(Maze maze){
         this.myMaze = maze;
-//        this.startState = new MazeState(0, maze.getStartPosition());
-//        this.ensState = new MazeState(0, maze.getGoalPosition());
     }
 
-
+    /**
+     *
+     * @param state - the current state
+     * @return - all possible states you can go to on ArrayList
+     */
     @Override
     public LinkedList<AState> getAllPossibleStates(AState state) {
         int cost;
@@ -26,7 +26,6 @@ public class SearchableMaze implements ISearchable{
         LinkedList<AState> allPossibleStates = new LinkedList<>();
         int currRow = statePosition.getRowIndex();
         int currCol = statePosition.getColumnIndex();
-//        int[][] PosShift = {{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1}};  //clock cycle starts at 12
         int[][] PosShift = {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}};  //clock cycle starts at 12
         for(int i = 0; i < 8; i++){
                 int row = currRow + PosShift[i][0];
@@ -62,8 +61,8 @@ public class SearchableMaze implements ISearchable{
 
     /**
      *
-     * @param rowIndex
-     * @param colIndex
+     * @param rowIndex - row index on maze
+     * @param colIndex - col index on maze
      * @return - true if the state position is inside the maze borders, false else
      */
     private boolean insideMaze(int rowIndex, int colIndex){

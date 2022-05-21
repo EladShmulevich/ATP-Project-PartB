@@ -3,15 +3,16 @@ package algorithms.mazeGenerators;
 
 public class Maze {
 
-    private int[][] maze;
-    private Position startPosition;
-    private Position endPosition;
+    private final int[][] maze;
+    private final Position startPosition;
+    private final Position endPosition;
 
     public Maze(int[][] maze, Position startPosition, Position endPosition) {
         this.maze = maze;
         this.startPosition = startPosition;
         this.endPosition = endPosition;
     }
+
 
     /**
      * @return start position

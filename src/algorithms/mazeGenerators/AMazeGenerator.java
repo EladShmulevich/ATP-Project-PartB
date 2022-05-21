@@ -53,34 +53,34 @@ public abstract class AMazeGenerator implements IMazeGenerator {
     }
 
     /**
-     *generate cuuren position Neighbours List
+     *generate current position Neighbours List
      * @param currentPos - {row,co}
      * @param maze - maze grid[][]
      * @param i - delta - how far is my neighbor
      * @return - list of all neighbors of current position
      */
-    protected ArrayList<Position> getNeighboursList(Position currentPos, int[][] maze, int i) {
+    protected ArrayList<Position> getNeighboursList(Position currentPos, int[][] maze, int i, int value) {
         ArrayList<Position> result = new ArrayList<>();
         int rowIndex = currentPos.getRowIndex();
         int colIndex = currentPos.getColumnIndex();
         //Down
         if (rowIndex + i < maze.length) {
-            if (maze[rowIndex + i][colIndex] == 1)
+            if (maze[rowIndex + i][colIndex] == value)
                 result.add(new Position(rowIndex + i, colIndex));
         }
         //Up
         if (rowIndex - i >= 0) {
-            if (maze[rowIndex - i][colIndex] == 1)
+            if (maze[rowIndex - i][colIndex] == value)
                 result.add(new Position(rowIndex - i, colIndex));
         }
         //Left
         if (colIndex - i >= 0) {
-            if (maze[rowIndex][colIndex - i] == 1)
+            if (maze[rowIndex][colIndex - i] == value)
                 result.add(new Position(rowIndex, colIndex - i));
         }
         //Right
         if (colIndex + i < maze[0].length) {
-            if (maze[rowIndex][colIndex + i] == 1)
+            if (maze[rowIndex][colIndex + i] == value)
                 result.add(new Position(rowIndex, colIndex + i));
         }
         return result;
@@ -95,8 +95,13 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @return random start position initialed to 0
      */
     protected Position initStartPosition(int[][] mazeGrid, int rows, int cols ,Random rand){
-        int randRow = rand.nextInt(rows);
-        int randCol = rand.nextInt(cols);
+        int randRow, randCol;
+        int[] colRange = {0, cols-1};
+        randRow = rand.nextInt(rows);
+        if(randRow > 0 && randRow < rows){
+            randCol = colRange[rand.nextInt(2)];
+        }
+        else{randCol = rand.nextInt(cols);}
         Position startPosition = new Position(randRow, randCol);
         mazeGrid[randRow][randCol] = 0;
         return startPosition;

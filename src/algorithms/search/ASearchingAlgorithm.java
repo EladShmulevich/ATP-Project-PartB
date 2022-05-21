@@ -1,8 +1,5 @@
 package algorithms.search;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     public int numOfNodesEve;
 

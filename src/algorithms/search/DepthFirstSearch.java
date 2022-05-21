@@ -27,7 +27,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         //start with rhe start state
         statesStack.push(startState);
         outerLoop:
-        while (!startState.equals(goalState)) {      //if we didn't reach goalState keep going
+        while (!startState.equals(goalState) && !statesStack.isEmpty()) {      //if we didn't reach goalState keep going
             currState = statesStack.peek();          //peek at the head of the stack - the node were currently standing on
             visitedNodes.add(currState);              //add this node to the visited nodes list
             LinkedList<AState> allPossibleStates = domain.getAllPossibleStates(currState);   //get all current list possible neighbors
@@ -35,7 +35,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             for (AState state : allPossibleStates) {
                 if (allPossibleStates.contains(goalState)){  //if we already know we can reach goalState we go to it(to prevent doing 2 moves instead of 1 - diagonal)
                     statesStack.push(goalState);
-                    numOfNodesEve += visitedNodes.size();
+                    numOfNodesEve += visitedNodes.size()+1;
                     return stackToArray(statesStack);
                 }
                 if (!visitedNodes.contains(state)) {   //if current node have unvisited neighbor put it in the stack

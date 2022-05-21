@@ -10,39 +10,44 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
     }
 
 
+    /**
+     *
+     * @param domain - something to search on
+     * @return - ArrayList of the States path
+     */
     private ArrayList<AState> bfsAlgorithm(ISearchable domain){
         if (domain == null) {
             return null;
         }
-        //PriorityQueue<ArrayList<AState>> queuePaths = new PriorityQueue<ArrayList<AState>>() ;
         Queue<ArrayList<AState>> queuePaths = new LinkedList<ArrayList<AState>>();
         AState startState = domain.getStartState();
         AState goalState = domain.getGoalState();
         int numLevels = 0;
 
 
-        LinkedList<AState> neigList = new LinkedList<AState>();
+        LinkedList<AState> neighborList;
         HashSet<AState> visitedNodes = new HashSet<AState>();
 
         ArrayList<AState> path = new ArrayList<AState>();
         //first path
         path.add(startState);
-        numOfNodesEve ++;
+//        numOfNodesEve ++;
         //add first path to queue path
         queuePaths.add(path);
         while (queuePaths.size() > 0){
             path = queuePaths.poll();
             //get the last move from the path
             AState lastState = path.get(path.size()-1);
-            numOfNodesEve ++;
+//            numOfNodesEve ++;
             visitedNodes.add(lastState);
             //path found
             if(lastState.equals(goalState)){
+                numOfNodesEve += visitedNodes.size();
                 return path;
             }
             else{
-                neigList = domain.getAllPossibleStates(lastState);
-                for (AState aState : neigList) {
+                neighborList = domain.getAllPossibleStates(lastState);
+                for (AState aState : neighborList) {
                     if (!visitedNodes.contains(aState)) {
                         ArrayList<AState> newPath = new ArrayList<AState>(path);
                         newPath.add(aState);
@@ -52,6 +57,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm{
             }
         }
         //if nothing found in the while loop
+        numOfNodesEve += visitedNodes.size();
         return null;
     }
 }
