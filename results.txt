@@ -103,3 +103,7 @@ Test finished!
 Test started!
 TEST Passed: generating maze (5*5) using SimpleMazeGenerator
 Test finished!
+Test started!
+TEST Passed: generating maze (5*5) using SimpleMazeGenerator
+TEST Passed: Applying BreadthFirstSearch on maze (5,5)
+Test finished!
