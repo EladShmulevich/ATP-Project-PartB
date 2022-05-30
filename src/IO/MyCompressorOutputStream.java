@@ -10,7 +10,6 @@ public class MyCompressorOutputStream extends OutputStream {
         this.out = os;
     }
 
-    int x = 66;
 
     @Override
     public void write(int b) throws IOException {
