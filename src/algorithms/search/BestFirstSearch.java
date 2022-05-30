@@ -15,7 +15,9 @@ public class BestFirstSearch extends BreadthFirstSearch{
      */
     private ArrayList<AState> bestFSAlgorithm(ISearchable domain){
 
-        PriorityQueue<AState> queueStates = new PriorityQueue<AState>(Comparator.comparing(AState::getCost)) ;
+//        PriorityQueue<AState> queueStates = new PriorityQueue<AState>(Comparator.comparing(AState::getCost));
+        PriorityQueue<AState> queueStates = new PriorityQueue<AState>(AState::compareCost);
+
         AState startState = domain.getStartState();
         AState goalState = domain.getGoalState();
         int numLevels = 0;
@@ -25,7 +27,6 @@ public class BestFirstSearch extends BreadthFirstSearch{
 
         ArrayList<AState> path = new ArrayList<AState>();
         //first path
-        //path.add(startState);
 //        numOfNodesEve ++;
 
         //add first path to queue path
@@ -37,11 +38,11 @@ public class BestFirstSearch extends BreadthFirstSearch{
             //path found
             if(currentState.equals(goalState)){
                 while(currentState != startState){
-                    path.add(currentState);
+                    path.add(0,currentState);
                     currentState = currentState.getPreviousState();
                 }
-                path.add(startState);
-                Collections.reverse(path);
+                path.add(0, startState);
+//                Collections.reverse(path);
                 numOfNodesEve += visitedNodes.size();
                 return path;
             }
