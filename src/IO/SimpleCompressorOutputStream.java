@@ -2,6 +2,7 @@ package IO;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 public class SimpleCompressorOutputStream extends OutputStream {
     OutputStream out;
@@ -24,6 +25,9 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     public void write(byte[] b) throws IOException {
         try{
+            for(int i=0; i < 12; i++){
+                out.write(b[i]);
+            }
             byte counter = 0;
             byte previous = b[12];
             if (previous == 0){
@@ -40,6 +44,7 @@ public class SimpleCompressorOutputStream extends OutputStream {
                 }
             }
             out.write(counter);
+            out.flush();
         }catch(IOException e){
             e.printStackTrace();
         }
