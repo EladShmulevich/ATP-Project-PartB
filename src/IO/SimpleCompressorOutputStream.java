@@ -23,6 +23,26 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
 
     public void write(byte[] b) throws IOException {
+        try{
+            byte counter = 0;
+            byte previous = b[12];
+            if (previous == 0){
+                 counter = 1;
+            }
+            for(int i = 13; i<b.length; i++){
+                if(b[i] == previous){
+                    counter++;
+                }
+                else{
+                    out.write(counter);
+                    previous = b[i];
+                    counter =1;
+                }
+            }
+            out.write(counter);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
     }
 }

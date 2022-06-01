@@ -23,6 +23,30 @@ public class SimpleDecompressorInputStream extends InputStream {
 
     @Override
     public int read(byte[] b) throws IOException {
+        try{
+            int lenByteArr = 12;
+            for(int i=12; i<b.length; i++){
+                lenByteArr += b[i];
+            }
+            byte[] byteArr = new byte[lenByteArr];
+            for(int i=0; i<12; i++){
+                byteArr[i] = b[i];
+            }
+            for (int i = 12; i < b.length; i++){
+                for(int j = 0; j<b[i]; j++){
+                    if (i % 2 == 0){
+                        b[i+j] = 0;
+                    }
+                    else{
+                        b[i+j] = 0;
+                    }
+                }
+            }
+
+            return in.read();
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
         return 0;
     }
 }
