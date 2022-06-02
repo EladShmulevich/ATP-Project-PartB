@@ -16,9 +16,9 @@ public class MyCompressorOutputStream extends OutputStream {
 
     @Override
     public void write(int b) throws IOException {
-        try{
+        try {
             out.write(b);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

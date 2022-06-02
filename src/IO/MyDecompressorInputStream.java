@@ -16,7 +16,7 @@ public class MyDecompressorInputStream extends InputStream {
     public int read() throws IOException {
         try {
             return in.read();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return 0;
@@ -26,6 +26,6 @@ public class MyDecompressorInputStream extends InputStream {
         return 0;
     }
 
-    }
+}
 
 

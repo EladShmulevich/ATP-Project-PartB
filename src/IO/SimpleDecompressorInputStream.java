@@ -51,24 +51,23 @@ public class SimpleDecompressorInputStream extends InputStream {
 //    }
 
     /**
-     *
-     * @param b   the buffer into which the data is read.
+     * @param b the buffer into which the data is read.
      * @return the end of the byteArray index; decompress it to the original byteArray
      * @throws IOException
      */
     @Override
-    public int read(byte[] b) throws IOException{
-        int byteIndex =0;
-        while (byteIndex < 12){
-            b[byteIndex]=(byte)read();
+    public int read(byte[] b) throws IOException {
+        int byteIndex = 0;
+        while (byteIndex < 12) {
+            b[byteIndex] = (byte) read();
             byteIndex++;
         }
 
         int nextBinary = 0;
         int i;
-        while ((i=read())!=-1) {
-            for(;i>0;i--){
-                b[byteIndex]=(byte)nextBinary;
+        while ((i = read()) != -1) {
+            for (; i > 0; i--) {
+                b[byteIndex] = (byte) nextBinary;
                 byteIndex++;
             }
             nextBinary = ((nextBinary == 1) ? 0 : 1);
@@ -78,7 +77,7 @@ public class SimpleDecompressorInputStream extends InputStream {
 
 
     @Override
-    public int read() throws IOException{
+    public int read() throws IOException {
         try {
             return in.read();
         } catch (IOException e) {
