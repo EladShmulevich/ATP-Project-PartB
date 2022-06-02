@@ -2,6 +2,8 @@ package IO;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
 
 public class MyDecompressorInputStream extends InputStream {
     InputStream in;
@@ -24,4 +26,6 @@ public class MyDecompressorInputStream extends InputStream {
         return 0;
     }
 
-}
+    }
+
+

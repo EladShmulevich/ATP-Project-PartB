@@ -4,7 +4,6 @@ package algorithms.mazeGenerators;
 import java.io.Serializable;
 
 public class Maze implements Serializable {
-
     private final int[][] maze;
     private final Position startPosition;
     private final Position endPosition;
@@ -20,7 +19,7 @@ public class Maze implements Serializable {
         int colsNum = byteToInt(b[2], b[3]);
         this.maze = new int[rowsNum][colsNum];
         this.startPosition = new Position(byteToInt(b[4], b[5]), byteToInt(b[6], b[7]));
-        this.endPosition = new Position(byteToInt(b[4], b[5]), byteToInt(b[6], b[7]));
+        this.endPosition = new Position(byteToInt(b[8], b[9]), byteToInt(b[10], b[11]));
         for(int i = 0; i < rowsNum; i++)
             for(int j = 0; j < colsNum; j++)
                 this.maze[i][j] = (int) b[12+j+i*colsNum];
