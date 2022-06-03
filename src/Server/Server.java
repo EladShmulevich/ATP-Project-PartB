@@ -22,23 +22,21 @@ public class Server {
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
         this.threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-        threadPoolExecutor.setCorePoolSize(Configurations.getInstance().getThreadPoolSize());
+//        Configurations config = Configurations.getInstance();
+//        Configurations.start();
+//        threadPoolExecutor.setCorePoolSize(config.getThreadPoolSize());
+        threadPoolExecutor.setCorePoolSize(4);
+
     }
 
     public void start()  {
-        new Thread(() -> {
-            try {
-                startServer();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).start();
+        new Thread(this::startServer).start();
     }
 
 
-    public void startServer() throws IOException {
+    public void startServer()  {
         try{
-            ServerSocket serverSocket = new ServerSocket();
+            ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(this.listeningIntervalMS);
             System.out.println("Starting server at port " + port);
             while(!stop){
@@ -47,13 +45,17 @@ public class Server {
                 System.out.println();
                 Socket clientSocket = serverSocket.accept();//waiting for a client
                 System.out.println("Client accepted " + clientSocket.toString());
-
-                new Thread(() -> {
-                    handleClient(clientSocket);}).start();
-                }catch (SocketTimeoutException se){
+                threadPoolExecutor.execute(() -> {handleClient(clientSocket);});
+                Thread.sleep(500);
+                }catch (SocketTimeoutException e){
                     System.out.println("Socket timeout");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
+            threadPoolExecutor.shutdown();
+            serverSocket.close();
+
         }catch (IOException e){
             System.out.println("IOException");
             e.printStackTrace();

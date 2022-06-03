@@ -93,7 +93,11 @@ public class Maze implements Serializable {
         for(int i = 0; i < rowsNum; i++)
             for(int j = 0; j < colsNum; j++)
                 byteMaze[12+j+i*colsNum] = (byte) maze[i][j];
-
         return  byteMaze;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

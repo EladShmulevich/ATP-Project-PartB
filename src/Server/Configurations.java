@@ -14,7 +14,7 @@ import java.util.Properties;
 
 public class Configurations {
     private static Configurations configInstance = null;
-    private static final Properties properties = null;
+    private static Properties properties = null;
     int threadPoolSize;
     public Configurations() throws IOException {
         start();
@@ -23,6 +23,9 @@ public class Configurations {
     public static Configurations getInstance() throws IOException {
         if(configInstance==null){
             configInstance = new Configurations();
+//            InputStream input = new FileInputStream("resources/config.properties");
+//            assert false;
+//            properties.load(input);
         }
         else{
             System.out.println("Configuration initiated..");
@@ -34,7 +37,9 @@ public class Configurations {
     public static void start() throws IOException {
         try{
             InputStream input = new FileInputStream("resources/config.properties");
-            assert false;
+//            InputStream input = Configurations.class.getClassLoader().getResourceAsStream("config.properties");
+
+            System.out.println(input);
             properties.load(input);
         }catch (IOException e){
             e.printStackTrace();
@@ -52,7 +57,7 @@ public class Configurations {
         return result;
     }
 
-    public ISearchingAlgorithm searchingAlgorithmConfiguration(){
+    public static ISearchingAlgorithm searchingAlgorithmConfiguration(){
         ISearchingAlgorithm result = null;
         switch (properties.getProperty("mazeSearchingAlgorithm")){
             case "BestFirstSearch": result = new BestFirstSearch();
