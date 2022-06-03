@@ -22,7 +22,7 @@ public class Maze implements Serializable {
         this.endPosition = new Position(byteToInt(b[8], b[9]), byteToInt(b[10], b[11]));
         for(int i = 0; i < rowsNum; i++)
             for(int j = 0; j < colsNum; j++)
-                this.maze[i][j] = (int) b[12+j+i*colsNum];
+                this.maze[i][j] = b[12+j+i*colsNum];
     }
 
     int byteToInt(byte div, byte reminder){

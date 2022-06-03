@@ -1,12 +1,10 @@
 package Server;
 
-import IO.MyCompressorOutputStream;
-import algorithms.mazeGenerators.IMazeGenerator;
+
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.*;
-
 import java.io.*;
-import java.util.ArrayList;
+
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
     public static final String tempDirectoryPath = System.getProperty("java.io.tmpdir");
@@ -59,13 +57,8 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         }
         else{
             ObjectOutputStream outToFile = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath + "/" + maze.hashCode()));
-//            ISearchingAlgorithm searchingAlg = Configurations.searchingAlgorithmConfiguration();
-            ISearchingAlgorithm searchingAlg = new BestFirstSearch();
+            ISearchingAlgorithm searchingAlg = Configurations.searchingAlgorithmConfiguration();
             sol = searchingAlg.solve(toSearchIn);
-//            ArrayList<AState> solutionPath = sol.getSolutionPath();
-//            for (int i = 0; i < solutionPath.size(); i++) {
-//                System.out.println(String.format("%s.%s", i, solutionPath.get(i)));
-//            }
             outToFile.writeObject(sol);
             outToFile.flush();
             outToFile.close();

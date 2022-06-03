@@ -14,18 +14,16 @@ import java.util.Properties;
 
 public class Configurations {
     private static Configurations configInstance = null;
-    private static Properties properties = null;
+    private static Properties properties;
     int threadPoolSize;
-    public Configurations() throws IOException {
+    public Configurations() {
+        properties = new Properties();
         start();
     }
 
-    public static Configurations getInstance() throws IOException {
+    public static Configurations getInstance() {
         if(configInstance==null){
             configInstance = new Configurations();
-//            InputStream input = new FileInputStream("resources/config.properties");
-//            assert false;
-//            properties.load(input);
         }
         else{
             System.out.println("Configuration initiated..");
@@ -34,38 +32,30 @@ public class Configurations {
     }
 
 
-    public static void start() throws IOException {
+    public synchronized Properties start() {
         try{
-            InputStream input = new FileInputStream("resources/config.properties");
-//            InputStream input = Configurations.class.getClassLoader().getResourceAsStream("config.properties");
-
-            System.out.println(input);
-            properties.load(input);
+            properties.load(new FileInputStream("resources/config.properties"));
+            return properties;
         }catch (IOException e){
             e.printStackTrace();
         }
+        return null;
     }
 
     public static IMazeGenerator generateMazeAlgorithmConfig(){
-        IMazeGenerator result = null;
-        switch (properties.getProperty("mazeGeneratingAlgorithm")){
-            case "MyMazeGenerator": result = new MyMazeGenerator();
-            case "EmptyMazeGenerator": result = new EmptyMazeGenerator();
-            case "SimpleMazeGenerator": result = new SimpleMazeGenerator();
-            default : result = new MyMazeGenerator();
-        }
-        return result;
+        return switch (properties.getProperty("mazeGeneratingAlgorithm")) {
+            case "EmptyMazeGenerator" -> new EmptyMazeGenerator();
+            case "SimpleMazeGenerator" -> new SimpleMazeGenerator();
+            default -> new MyMazeGenerator();
+        };
     }
 
     public static ISearchingAlgorithm searchingAlgorithmConfiguration(){
-        ISearchingAlgorithm result = null;
-        switch (properties.getProperty("mazeSearchingAlgorithm")){
-            case "BestFirstSearch": result = new BestFirstSearch();
-            case "BreadthFirstSearch": result = new BreadthFirstSearch();
-            case "DepthFirstSearch": result = new DepthFirstSearch();
-            default : result = new BestFirstSearch();
-        }
-        return result;
+        return switch (properties.getProperty("mazeSearchingAlgorithm")) {
+            case "BreadthFirstSearch" -> new BreadthFirstSearch();
+            case "DepthFirstSearch" -> new DepthFirstSearch();
+            default -> new BestFirstSearch();
+        };
     }
 
     public int getThreadPoolSize(){

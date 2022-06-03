@@ -2,8 +2,6 @@ package test;
 
 import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
-import IO.SimpleCompressorOutputStream;
-import IO.SimpleDecompressorInputStream;
 import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -26,7 +24,7 @@ public class RunCompressDecompressMaze {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        byte savedMazeBytes[] = new byte[0];
+        byte[] savedMazeBytes = new byte[0];
         try {
             //read maze from file
             InputStream in = new MyDecompressorInputStream(new FileInputStream(mazeFileName));

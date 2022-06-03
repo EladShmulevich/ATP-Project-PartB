@@ -46,11 +46,4 @@ public class Position implements Serializable {
         if (position == null || getClass() != o.getClass()) return false;
         return rowPos == position.getRowIndex() && colPos == position.getColumnIndex();
     }
-
-    //    public boolean equals(Position p) {
-//        if (this == p) return true;
-//        if (p == null) return false;
-//        return rowPos == p.rowPos && colPos == p.colPos;
-//    }
-
 }

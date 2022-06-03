@@ -8,9 +8,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     @Override
     public Maze generate(int rows, int columns) {
-        Stack<Position> pStack = new Stack<Position>();
-        ArrayList<Position> path = new ArrayList<Position>();     //save the path of the maze
-        Position startPosition, endPosition;
+        Position startPosition;
         Random rand = new Random();
 
 
@@ -33,8 +31,8 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @param rand random
      */
     private Maze dfsGenerator(int[][] maze, int rows, int cols, Position startPosition, Random rand){
-        Stack<Position> pStack = new Stack<Position>();
-        ArrayList<Position> path = new ArrayList<Position>();     //save the path of the maze
+        Stack<Position> pStack = new Stack<>();
+        ArrayList<Position> path = new ArrayList<>();     //save the path of the maze
         Position currPosition, nextPosition;
         ArrayList<Position> allNeighbors;
 
@@ -104,7 +102,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      *breaks the "wall" between 2 passes(0's)
-     * @param maze - mazegrid [][]
+     * @param maze - maze-grid [][]
      * @param currRow -curr row position
      * @param nextRow - next row position
      * @param currCol - curr col position
@@ -123,9 +121,10 @@ public class MyMazeGenerator extends AMazeGenerator {
             maze[currRow][currCol - 1] = 0;
             return new Position(currRow, currCol - 1);
         }
-        if (currCol - nextCol == -2)
+        if (currCol - nextCol == -2){
             maze[currRow][currCol + 1] = 0;
-            return new Position(currRow, currCol + 1);
+        }
+        return new Position(currRow, currCol + 1);
     }
 
     /**

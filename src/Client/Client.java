@@ -12,18 +12,17 @@ public class Client {
     private IClientStrategy strategy;
 
 
-
     public Client(InetAddress serverIP, int serverPort, IClientStrategy strategy) {
         this.serverIP = serverIP;
         this.serverPort = serverPort;
         this.strategy = strategy;
     }
 
-    public void communicateWithServer(){
-        try{
+    public void communicateWithServer() {
+        try {
             Socket clientSocket = new Socket(serverIP, serverPort);
             //System.out.println("connected to server - IP = " + serverIP + ", Port = " + serverPort);
-            strategy.clientStrategy(clientSocket.getInputStream(),clientSocket.getOutputStream());
+            strategy.clientStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
