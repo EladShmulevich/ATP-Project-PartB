@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class Server {
+public class Server{
 
     private int port;
     private int listeningIntervalMS;
@@ -79,4 +79,5 @@ public class Server {
         System.out.println("Server stopped");
         this.stop = true;
     }
+
 }
