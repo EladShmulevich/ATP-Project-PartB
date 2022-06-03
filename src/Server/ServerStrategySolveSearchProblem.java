@@ -62,10 +62,10 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
 //            ISearchingAlgorithm searchingAlg = Configurations.searchingAlgorithmConfiguration();
             ISearchingAlgorithm searchingAlg = new BestFirstSearch();
             sol = searchingAlg.solve(toSearchIn);
-            ArrayList<AState> solutionPath = sol.getSolutionPath();
-            for (int i = 0; i < solutionPath.size(); i++) {
-                System.out.println(String.format("%s.%s", i, solutionPath.get(i)));
-            }
+//            ArrayList<AState> solutionPath = sol.getSolutionPath();
+//            for (int i = 0; i < solutionPath.size(); i++) {
+//                System.out.println(String.format("%s.%s", i, solutionPath.get(i)));
+//            }
             outToFile.writeObject(sol);
             outToFile.flush();
             outToFile.close();
