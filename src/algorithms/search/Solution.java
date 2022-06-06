@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Solution implements Serializable {
-    private ArrayList<AState> solutionPath;
+    private final ArrayList<AState> solutionPath;
 
     /**
      * constructor

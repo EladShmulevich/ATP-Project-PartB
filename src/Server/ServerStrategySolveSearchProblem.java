@@ -4,6 +4,9 @@ package Server;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
@@ -35,7 +38,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
      * @param maze - Maze
      * @return true/false
      */
-    private boolean isSolutionExist(Maze maze){
+    private synchronized boolean isSolutionExist(Maze maze){
         return new File(tempDirectoryPath + "/" + maze.hashCode() + ".sol").exists();
     }
 
@@ -48,15 +51,16 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
      * @throws IOException e
      * @throws ClassNotFoundException e
      */
-    private Solution HandleSolution(Maze maze, boolean exist, SearchableMaze toSearchIn) throws IOException, ClassNotFoundException {
+    private synchronized Solution HandleSolution(Maze maze, boolean exist, SearchableMaze toSearchIn) throws IOException, ClassNotFoundException {
         Solution sol;
         if(exist){
+            System.out.println("solution exist!");
             ObjectInputStream inFromFile = new ObjectInputStream(new FileInputStream(tempDirectoryPath + "/" + maze.hashCode() + ".sol"));
             sol = (Solution) inFromFile.readObject();
             inFromFile.close();
         }
         else{
-            ObjectOutputStream outToFile = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath + "/" + maze.hashCode()));
+            ObjectOutputStream outToFile = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath + "/" + maze.hashCode()+ ".sol"));
             ISearchingAlgorithm searchingAlg = Configurations.searchingAlgorithmConfiguration();
             sol = searchingAlg.solve(toSearchIn);
             outToFile.writeObject(sol);

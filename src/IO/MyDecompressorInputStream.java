@@ -49,8 +49,11 @@ public class MyDecompressorInputStream extends InputStream {
             counter--;
         }
         for (int i = 0; i < 8; i++) {
-            byteArr[index] = newByteArr[i];
-            index++;
+            if(index < byteArr.length) {
+                byteArr[index] = newByteArr[i];
+                index++;
+            }
+
         }
     }
 }

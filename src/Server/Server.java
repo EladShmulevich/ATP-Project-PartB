@@ -32,18 +32,17 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(this.listeningIntervalMS);
-            System.out.println("Starting server at port " + port);
+            System.out.println("Starting server at port " + port + "\n");
             while (!stop) {
                 try {
-
-                    System.out.println();
                     Socket clientSocket = serverSocket.accept();//waiting for a client
-                    System.out.println("Client accepted " + clientSocket.toString());
-                    threadPoolExecutor.submit(() -> handleClient(clientSocket));
+                    System.out.println("Client accepted " + clientSocket.toString() + "\n");
+                    threadPoolExecutor.execute(() -> handleClient(clientSocket));
                     Thread.sleep(500);
                 } catch (SocketTimeoutException e) {
                     System.out.println("Socket timeout");
-                } catch (InterruptedException e) {
+                }
+                catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -59,7 +58,7 @@ public class Server {
     private void handleClient(Socket clientSocket) {
         try {
             strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-            System.out.println("Done handling client: " + clientSocket);
+            System.out.println("Done handling client: " + clientSocket + "\n");
             clientSocket.close();
         } catch (IOException e) {
             System.out.println("IOException");

@@ -25,9 +25,10 @@ public class Configurations {
         if(configInstance==null){
             configInstance = new Configurations();
         }
-        else{
-            System.out.println("Configuration initiated..");
-        }
+//        else{
+//            System.out.println("Configuration initiated..");
+//
+//        }
         return configInstance;
     }
 
