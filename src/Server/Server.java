@@ -38,7 +38,7 @@ public class Server {
                     Socket clientSocket = serverSocket.accept();//waiting for a client
                     System.out.println("Client accepted " + clientSocket.toString() + "\n");
                     threadPoolExecutor.execute(() -> handleClient(clientSocket));
-                    Thread.sleep(500);
+                    Thread.sleep(2000);
                 } catch (SocketTimeoutException e) {
                     System.out.println("Socket timeout");
                 }

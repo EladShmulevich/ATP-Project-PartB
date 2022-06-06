@@ -53,7 +53,6 @@ public class MyDecompressorInputStream extends InputStream {
                 byteArr[index] = newByteArr[i];
                 index++;
             }
-
         }
     }
 }
